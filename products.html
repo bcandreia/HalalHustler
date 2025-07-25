@@ -1,4 +1,109 @@
-   <div class="product">
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products | Halal Hustler</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #111;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    main {
+      padding: 40px 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .product {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .product:hover {
+      transform: translateY(-5px);
+    }
+    .product img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .product h3 {
+      margin: 10px 0;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007b5e;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    footer {
+      text-align: center;
+      background: #111;
+      color: #fff;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Halal Hustler</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Our Products</h2>
+    <div class="product-grid">
+      <div class="product">
+        <img src="https://images-api.printify.com/mockup/688123d119620e21fd0f5b59/78998/98445/islamic-inspired-t-shirt.jpg?camera_label=front&revision=1753293905465&s=400" alt="Islamic Inspired T-Shirt">
+        <h3>Islamic Inspired T-Shirt</h3>
+        <a class="btn" href="https://halal-hustler.printify.me/products/islamic-inspired-t-shirt">Shop Now</a>
+      </div>
+      <div class="product">
+        <img src="https://images-api.printify.com/mockup/687846f733f90d08170e7702/12022/92570/islamic-powered-by-bissmillah-unisex-heavy-cotton-tee-muslim-religion-shirt-islamic-apparel-islamic-gift-idea-islamic-clothing.jpg?camera_label=front&revision=1753222973631&s=400" alt="Powered by Bismillah T-Shirt">
+        <h3>Powered by Bismillah</h3>
+        <a class="btn" href="https://halal-hustler.printify.me/products/powered-by-bismillah">Shop Now</a>
+      </div>
+      <div class="product">
+        <img src="https://images.printify.com/mockup/64b9d1895b967e2397a2f7b2.png" alt="Sabr Looks Good on Me">
+        <h3>Sabr Looks Good on Me</h3>
+        <a class="btn" href="https://halal-hustler.printify.me/products/sabr-looks-good">Shop Now</a>
+      </div>
+      <div class="product">
         <img src="https://images-api.printify.com/mockup/68800e05b78eb888fe0fcad7/42668/105264/spiritual-long-sleeve-tee-property-of-allah-modest-wear-gift-for-muslims-beach-style-faith-based-fashion-comfortable-apparel.jpg?camera_label=front&revision=1753222715350&s=400" alt="Property of Allah Long Sleeve Tee">
         <h3>Property of Allah Tee</h3>
         <a class="btn" href="https://halal-hustler.printify.me/products/property-of-allah-tee">Shop Now</a>
