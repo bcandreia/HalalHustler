@@ -12,25 +12,45 @@
       margin: 0;
       padding: 0;
     }
+
     header {
-      background: #111;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Islamic_pattern.svg/1280px-Islamic_pattern.svg.png') center/cover no-repeat, #111;
       color: #fff;
-      padding: 20px;
+      padding: 40px 20px;
       text-align: center;
+      position: relative;
     }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+
+    header h1,
+    header nav {
+      position: relative;
+      z-index: 1;
+    }
+
     nav a {
       color: #fff;
       margin: 0 15px;
       text-decoration: none;
       font-weight: bold;
     }
+
     main {
       padding: 40px 20px;
     }
+
     h2 {
       text-align: center;
       margin-bottom: 40px;
     }
+
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -38,6 +58,7 @@
       max-width: 1200px;
       margin: auto;
     }
+
     .product {
       background: #fff;
       padding: 20px;
@@ -46,17 +67,21 @@
       text-align: center;
       transition: transform 0.3s ease;
     }
+
     .product:hover {
       transform: translateY(-5px);
     }
+
     .product img {
       max-width: 100%;
       border-radius: 8px;
       margin-bottom: 15px;
     }
+
     .product h3 {
       margin: 10px 0;
     }
+
     .btn {
       display: inline-block;
       padding: 10px 20px;
@@ -65,6 +90,7 @@
       text-decoration: none;
       border-radius: 5px;
     }
+
     footer {
       text-align: center;
       background: #111;
@@ -84,6 +110,20 @@
       <a href="contact.html">Contact</a>
     </nav>
   </header>
+
+  <main>
+    <h2>Our Products</h2>
+    <div class="product-grid">
+      <!-- Product blocks go here -->
+      <!-- You already have your 15 products structured correctly -->
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Halal Hustler. All rights reserved.</p>
+  </footer>
+</body>
+</html>
 
   <main>
     <h2>Our Products</h2>
