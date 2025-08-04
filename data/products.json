@@ -1,0 +1,15 @@
+[
+  {
+    "name": "Salah Over Drama Tee",
+    "price": 24.99,
+    "image": "images/salah-drama.png",
+    "description": "Comfy tee reminding you what really matters."
+  },
+  {
+    "name": "Halal Hustler Hoodie",
+    "price": 39.99,
+    "image": "images/halal-hustler.png",
+    "description": "Rep your grind in faith-driven style."
+  }
+]
+
