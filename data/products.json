@@ -1,15 +1,14 @@
 [
   {
-    "name": "Salah Over Drama Tee",
-    "price": 24.99,
-    "image": "images/salah-drama.png",
-    "description": "Comfy tee reminding you what really matters."
+    "name": "Islamic Inspired T-Shirt",
+    "image": "https://images-api.printify.com/mockup/688123d119620e21fd0f5b59/78998/98445/islamic-inspired-t-shirt.jpg?camera_label=front&revision=1753293905465&s=400",
+    "link": "https://halal-hustler.printify.me/product/21870091/islamic-inspired-t-shirt"
   },
   {
-    "name": "Halal Hustler Hoodie",
-    "price": 39.99,
-    "image": "images/halal-hustler.png",
-    "description": "Rep your grind in faith-driven style."
+    "name": "Spiritual Long Sleeve Tee",
+    "image": "https://images-api.printify.com/mockup/68800e05b78eb888fe0fcad7/42668/105264/spiritual-long-sleeve-tee-property-of-allah-modest-wear-gift-for-muslims-beach-style-faith-based-fashion-comfortable-apparel.jpg?camera_label=front&revision=1753222715350&s=400",
+    "link": "https://halal-hustler.printify.me/product/21851594/spiritual-long-sleeve-tee-property-of-allah-modest-wear-gift-for-muslims-beach-style-faith-based-fashion-comfortable-apparel"
   }
 ]
+*(You can add the rest later, this is just to start)*
 
