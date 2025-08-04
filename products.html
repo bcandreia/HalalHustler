@@ -2,9 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Halal Hustler | Shop</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    h2 {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px;
+    }
+    .product {
+      background: white;
+      padding: 20px;
+      width: 260px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .product img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .btn {
+      background-color: #007b5e;
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -19,8 +54,8 @@
 
   <main>
     <h2>Our Products</h2>
-    <div class="product-grid" id="productGrid">
-      <!-- Products will load here -->
+    <div class="product-grid" id="product-grid">
+      <p>Loading products...</p>
     </div>
   </main>
 
@@ -32,13 +67,15 @@
     fetch('data/products.json')
       .then(res => res.json())
       .then(products => {
-        const grid = document.getElementById('productGrid');
+        const grid = document.getElementById('product-grid');
+        grid.innerHTML = ''; // clear loading text
+
         products.forEach(product => {
           const div = document.createElement('div');
           div.className = 'product';
           div.innerHTML = `
             <a href="${product.link}" target="_blank">
-              <img src="${product.image}" alt="${product.name}" />
+              <img src="${product.image}" alt="${product.name}">
             </a>
             <h3>${product.name}</h3>
             <a class="btn" href="${product.link}" target="_blank">Shop Now</a>
@@ -46,9 +83,9 @@
           grid.appendChild(div);
         });
       })
-      .catch(err => {
-        console.error('Failed to load products:', err);
-        document.getElementById('productGrid').innerHTML = "<p>Failed to load products. Please try again later.</p>";
+      .catch(error => {
+        document.getElementById('product-grid').innerHTML = '<p>Failed to load products. Please try again later.</p>';
+        console.error('Fetch error:', error);
       });
   </script>
 </body>
