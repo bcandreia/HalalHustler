@@ -1,27 +1,123 @@
-<main>
-  <h2>Our Products</h2>
-  <div id="product-grid" class="product-grid"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Halal Hustler | Shop</title>
+  <meta name="description" content="Explore our faith-inspired streetwear – shop the Halal Hustler collection." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="images/icon.png" type="image/png" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+    header {
+      background: url('images/header-pattern.png') center/cover no-repeat;
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+    }
+    nav {
+      margin-top: 15px;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px;
+    }
+    .product {
+      background: white;
+      padding: 20px;
+      width: 260px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .product img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .btn {
+      background-color: #007b5e;
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    footer {
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Halal Hustler</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Our Products</h2>
+    <div class="product-grid" id="productGrid">
+      <!-- Products will be dynamically loaded here -->
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Halal Hustler. All rights reserved.</p>
+  </footer>
 
   <script>
     fetch('data/products.json')
       .then(response => response.json())
       .then(products => {
-        const container = document.getElementById('product-grid');
+        const grid = document.getElementById('productGrid');
         products.forEach(product => {
-          const div = document.createElement('div');
-          div.className = 'product';
-          div.innerHTML = `
+          const card = document.createElement('div');
+          card.className = 'product';
+          card.innerHTML = `
             <a href="${product.link}" target="_blank">
               <img src="${product.image}" alt="${product.name}">
             </a>
             <h3>${product.name}</h3>
             <a class="btn" href="${product.link}" target="_blank">Shop Now</a>
           `;
-          container.appendChild(div);
+          grid.appendChild(card);
         });
       })
       .catch(error => {
-        console.error('Error loading product data:', error);
+        console.error('Error loading products:', error);
       });
   </script>
-</main>
+</body>
+</html>
