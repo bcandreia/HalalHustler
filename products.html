@@ -64,7 +64,7 @@
   </footer>
 
   <script>
-    fetch('data/products.json')
+    fetch('products.json')
       .then(res => res.json())
       .then(products => {
         const grid = document.getElementById('product-grid');
