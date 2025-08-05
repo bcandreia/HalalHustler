@@ -1,51 +1,48 @@
-// fetch-products.js
 const fs = require('fs');
 const https = require('https');
 
-const SHOP_ID = process.env.PRINTIFY_SHOP_ID;
-const TOKEN = process.env.PRINTIFY_TOKEN;
+const shopId = process.env.PRINTIFY_SHOP_ID;
+const token = process.env.PRINTIFY_TOKEN;
 
-function fetchPrintifyProducts() {
-  const options = {
-    hostname: 'api.printify.com',
-    path: `/v1/shops/${SHOP_ID}/products.json`,
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${TOKEN}`,
-      'Content-Type': 'application/json'
-    }
-  };
+const options = {
+  hostname: 'api.printify.com',
+  path: `/v1/shops/${shopId}/products.json`,
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  },
+};
 
-  const req = https.request(options, res => {
-    let data = '';
+const req = https.request(options, (res) => {
+  let data = '';
+  res.on('data', (chunk) => {
+    data += chunk;
+  });
 
-    res.on('data', chunk => {
-      data += chunk;
-    });
-
-    res.on('end', () => {
+  res.on('end', () => {
+    try {
       const json = JSON.parse(data);
-      const products = json.map(product => {
-        const variant = product.variants[0];
-        const image = variant ? variant.images[0] : null;
-        return {
-          name: product.title,
-          image: image ? image.src : '',
-          price: `$${(variant.price / 100).toFixed(2)}`,
-          link: `https://halal-hustler.printify.me/product/${product.id}/${product.handle}`
-        };
-      });
+      const products = json.map((product) => ({
+        id: product.id,
+        title: product.title,
+        image: product.images?.[0]?.src || '',
+        price: (product.variants?.[0]?.price / 100).toFixed(2),
+        link: `https://halal-hustler.printify.me/products/${product.handle}`,
+      }));
 
       fs.writeFileSync('products.json', JSON.stringify(products, null, 2));
-      console.log('✅ products.json updated successfully.');
-    });
+      console.log('✅ products.json updated successfully');
+    } catch (error) {
+      console.error('❌ Failed to parse JSON:', error);
+      process.exit(1);
+    }
   });
+});
 
-  req.on('error', error => {
-    console.error('❌ Error fetching products:', error);
-  });
+req.on('error', (error) => {
+  console.error('❌ Request failed:', error);
+  process.exit(1);
+});
 
-  req.end();
-}
-
-fetchPrintifyProducts();
+req.end();
