@@ -1,0 +1,37 @@
+name: Update Printify Products
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'  # every hour
+
+jobs:
+  update-products:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Run fetch-products.js
+        env:
+          PRINTIFY_TOKEN: ${{ secrets.PRINTIFY_TOKEN }}
+          PRINTIFY_SHOP_ID: '23300691'
+        run: node fetch-products.js
+
+      - name: Commit updated products.json
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add products.json
+          git commit -m "Update products.json from API" || echo "No changes to commit"
+          git push
