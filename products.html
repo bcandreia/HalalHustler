@@ -75,15 +75,20 @@
         grid.innerHTML = ''; // clear loading text
 
         products.forEach(product => {
+          const title = product.title || 'Untitled';
+          const price = product.variants && product.variants[0]?.price ? `$${product.variants[0].price}` : 'Price N/A';
+          const image = product.images && product.images[0]?.src ? product.images[0].src : 'placeholder.jpg';
+          const link = product.handle ? `https://halal-hustler.printify.me/product/${product.handle}` : '#';
+
           const div = document.createElement('div');
           div.className = 'product';
           div.innerHTML = `
-            <a href="${product.link}" target="_blank">
-              <img src="${product.image}" alt="${product.name}">
+            <a href="${link}" target="_blank">
+              <img src="${image}" alt="${title}">
             </a>
-            <h3>${product.name}</h3>
-            <p class="price">${product.price}</p>
-            <a class="btn" href="${product.link}" target="_blank">Shop Now</a>
+            <h3>${title}</h3>
+            <p class="price">${price}</p>
+            <a class="btn" href="${link}" target="_blank">Shop Now</a>
           `;
           grid.appendChild(div);
         });
