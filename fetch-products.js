@@ -23,7 +23,7 @@ const req = https.request(options, (res) => {
   res.on('end', () => {
     try {
       const json = JSON.parse(data);
-      const products = json.map((product) => ({
+      const products = json.data.map(product => {
         id: product.id,
         title: product.title,
         image: product.images?.[0]?.src || '',
