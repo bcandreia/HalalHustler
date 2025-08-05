@@ -37,12 +37,34 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="https://images-api.printify.com/mockup/687ff84271823539179c85da/60694/96495/snapback-cap.jpg?camera_label=front&revision=1753295030471&s=400" alt="Islamic Style Snapback Cap" />
-    <h2>Islamic Style Snapback Cap</h2>
-    <p>Bold, faith-driven style. Adjustable fit. Premium stitching. Represent the Halal Hustler mindset in your everyday wear.</p>
-    <h3>$30.99</h3>
-    <a class="btn" href="https://halal-hustler.printify.me/product/22079559/islamic-style-snapback-cap-halal-hustler-design" target="_blank">Buy Now</a>
+  <div class="container" id="product-container">
+    <p>Loading product...</p>
   </div>
+
+  <script>
+    fetch('products.json')
+      .then(res => res.json())
+      .then(products => {
+        const product = products.find(p => p.name === "Islamic Style Snapback Cap");
+
+        if (!product) {
+          document.getElementById('product-container').innerHTML = '<p>Product not found.</p>';
+          return;
+        }
+
+        const container = document.getElementById('product-container');
+        container.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" />
+          <h2>${product.name}</h2>
+          <p>Bold, faith-driven style. Adjustable fit. Premium stitching. Represent the Halal Hustler mindset in your everyday wear.</p>
+          <h3>${product.price}</h3>
+          <a class="btn" href="${product.link}" target="_blank">Buy Now</a>
+        `;
+      })
+      .catch(err => {
+        document.getElementById('product-container').innerHTML = '<p>Failed to load product.</p>';
+        console.error(err);
+      });
+  </script>
 </body>
 </html>
