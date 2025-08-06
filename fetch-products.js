@@ -24,16 +24,26 @@ https
     res.on("end", () => {
       try {
         const raw = JSON.parse(data);
-        const products = raw.map((product) => {
+        // The Printify API wraps product data in a `data` array. Older versions
+        // of this script assumed the response itself was the array, causing a
+        // crash when accessing `raw.map`.  Normalise the shape so mapping works
+        // regardless of the response structure.
+        const items = Array.isArray(raw) ? raw : raw?.data || [];
+
+        const products = items.map((product) => {
           const variant = product.variants?.[0];
           const image = variant?.images?.[0]?.src || product.images?.[0]?.src;
           const price = (variant?.price || 0) / 100;
+
+          const productId = product.handle || product.id || "";
 
           return {
             title: product.title || "No title",
             image: image || "",
             price: price.toFixed(2),
-            link: `https://halal-hustler.printify.me/products/${product.handle || product.id}`,
+            link: productId
+              ? `https://halal-hustler.printify.me/products/${productId}`
+              : "",
           };
         });
 
