@@ -24,18 +24,25 @@ https
     res.on("end", () => {
       try {
         const raw = JSON.parse(data);
-        const products = raw.map((product) => {
-          const variant = product.variants?.[0];
-          const image = variant?.images?.[0]?.src || product.images?.[0]?.src;
-          const price = (variant?.price || 0) / 100;
+        const products = raw
+          .map((product) => {
+            const identifier = product.handle || product.id;
+            if (!identifier) {
+              return null;
+            }
 
-          return {
-            title: product.title || "No title",
-            image: image || "",
-            price: price.toFixed(2),
-            link: `https://halal-hustler.printify.me/products/${product.handle || product.id}`,
-          };
-        });
+            const variant = product.variants?.[0];
+            const image = variant?.images?.[0]?.src || product.images?.[0]?.src;
+            const price = (variant?.price || 0) / 100;
+
+            return {
+              title: product.title || "No title",
+              image: image || "",
+              price: price.toFixed(2),
+              link: `https://halal-hustler.printify.me/products/${identifier}`,
+            };
+          })
+          .filter(Boolean);
 
         fs.writeFileSync("products.json", JSON.stringify(products, null, 2));
         console.log("✅ products.json updated");
