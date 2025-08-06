@@ -6,6 +6,23 @@
   <title>Halal Hustler | Shop</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+    header {
+      background: #222;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 15px;
+      color: white;
+      text-decoration: none;
+    }
     h2 {
       text-align: center;
       margin-top: 40px;
@@ -28,6 +45,7 @@
     .product img {
       width: 100%;
       border-radius: 8px;
+      height: auto;
     }
     .btn {
       background-color: #007b5e;
@@ -42,6 +60,12 @@
     .price {
       font-weight: bold;
       margin: 10px 0;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #eee;
+      margin-top: 50px;
     }
   </style>
 </head>
@@ -72,7 +96,7 @@
       .then(res => res.json())
       .then(products => {
         const grid = document.getElementById('product-grid');
-        grid.innerHTML = ''; // Clear loading text
+        grid.innerHTML = ''; // clear loading text
 
         products.forEach(product => {
           const title = product.title || 'Untitled';
