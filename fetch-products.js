@@ -27,7 +27,7 @@ https
         const products = raw.data.map((product) => {
           const variant = product.variants?.[0];
           const image = variant?.images?.[0]?.src || product.images?.[0]?.src;
-          const price = (variant?.price || 0) / 100;
+          const price = (variant?.retail_price || 0) / 100;
           const formattedPrice = new Intl.NumberFormat("en-US", {
             style: "currency",
             currency: "USD",
