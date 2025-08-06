@@ -33,11 +33,14 @@ https
             currency: "USD",
           }).format(price);
 
+          // Use handle if it exists; otherwise fallback to product.id
+          const handle = product.handle ? product.handle : product.id;
+
           return {
             title: product.title || "No title",
             image: image || "",
             price: formattedPrice,
-            link: `https://halal-hustler.printify.me/products/${product.id}`,
+            link: `https://halal-hustler.printify.me/products/${handle}`,
           };
         });
 
