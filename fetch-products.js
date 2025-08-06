@@ -27,6 +27,11 @@ https
     });
 
     res.on("end", () => {
+      if (res.statusCode !== 200) {
+        console.error(`❌ API request failed with status ${res.statusCode}: ${data}`);
+        return;
+      }
+
       try {
         const raw = JSON.parse(data);
         const productList = raw.data || raw; // handle API response shape
@@ -51,6 +56,6 @@ https
     });
   })
   .on("error", (err) => {
-    console.error("❌ HTTPS request failed:", err.message);
+    console.error("❌ HTTPS request failed:", err.message || err);
   })
   .end();
