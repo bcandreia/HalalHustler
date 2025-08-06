@@ -68,34 +68,43 @@
   </footer>
 
   <script>
-    fetch('products.json')
-      .then(res => res.json())
-      .then(products => {
-        const grid = document.getElementById('product-grid');
-        grid.innerHTML = ''; // clear loading text
+    fetch("products.json")
+      .then((res) => res.json())
+      .then((products) => {
+        const grid = document.getElementById("product-grid");
+        grid.innerHTML = ""; // clear loading text
 
-        products.forEach(product => {
-          const title = product.title || 'Untitled';
-          const price = product.variants && product.variants[0]?.price ? `$${product.variants[0].price}` : 'Price N/A';
-          const image = product.images && product.images[0]?.src ? product.images[0].src : 'placeholder.jpg';
-          const link = product.handle ? `https://halal-hustler.printify.me/product/${product.handle}` : '#';
+        products.forEach((product) => {
+          const title = product.title || "Untitled";
 
-          const div = document.createElement('div');
-          div.className = 'product';
+          // Products are stored in a simplified format by fetch-products.js.
+          // Prices may either be a number in cents or a pre-formatted string.
+          let price = product.price;
+          if (typeof price === "number") {
+            price = (price / 100).toFixed(2);
+          }
+          const formattedPrice = price ? `$${price}` : "Price N/A";
+
+          const image = product.image || "placeholder.jpg";
+          const link = product.link || "#";
+
+          const div = document.createElement("div");
+          div.className = "product";
           div.innerHTML = `
             <a href="${link}" target="_blank">
               <img src="${image}" alt="${title}">
             </a>
             <h3>${title}</h3>
-            <p class="price">${price}</p>
+            <p class="price">${formattedPrice}</p>
             <a class="btn" href="${link}" target="_blank">Shop Now</a>
           `;
           grid.appendChild(div);
         });
       })
-      .catch(error => {
-        document.getElementById('product-grid').innerHTML = '<p>Failed to load products. Please try again later.</p>';
-        console.error('Fetch error:', error);
+      .catch((error) => {
+        document.getElementById("product-grid").innerHTML =
+          "<p>Failed to load products. Please try again later.</p>";
+        console.error("Fetch error:", error);
       });
   </script>
 </body>
