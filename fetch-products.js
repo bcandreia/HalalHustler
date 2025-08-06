@@ -4,6 +4,11 @@ const https = require("https");
 const shopId = process.env.PRINTIFY_SHOP_ID;
 const token = process.env.PRINTIFY_TOKEN;
 
+if (!shopId || !token) {
+  console.error("❌ Missing PRINTIFY_SHOP_ID or PRINTIFY_TOKEN environment variables");
+  process.exit(1);
+}
+
 const options = {
   hostname: "api.printify.com",
   path: `/v1/shops/${shopId}/products.json`,
@@ -22,16 +27,22 @@ https
     });
 
     res.on("end", () => {
+      if (res.statusCode !== 200) {
+        console.error(`❌ API request failed with status ${res.statusCode}: ${data}`);
+        return;
+      }
+
       try {
         const raw = JSON.parse(data);
-        const products = raw.map((product) => {
+        const productList = raw.data || raw; // handle API response shape
+        const products = productList.map((product) => {
           const variant = product.variants?.[0];
-          const image = variant?.images?.[0]?.src || product.images?.[0]?.src;
+          const image = variant?.images?.[0]?.src || product.images?.[0]?.src || "";
           const price = (variant?.price || 0) / 100;
 
           return {
             title: product.title || "No title",
-            image: image || "",
+            image,
             price: price.toFixed(2),
             link: `https://halal-hustler.printify.me/products/${product.handle || product.id}`,
           };
@@ -45,6 +56,6 @@ https
     });
   })
   .on("error", (err) => {
-    console.error("❌ HTTPS request failed:", err.message);
+    console.error("❌ HTTPS request failed:", err.message || err);
   })
   .end();
