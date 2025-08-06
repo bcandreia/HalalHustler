@@ -76,9 +76,12 @@
 
         products.forEach(product => {
           const title = product.title || 'Untitled';
-          const price = product.variants && product.variants[0]?.price ? `$${product.variants[0].price}` : 'Price N/A';
-          const image = product.images && product.images[0]?.src ? product.images[0].src : 'placeholder.jpg';
-          const link = product.handle ? `https://halal-hustler.printify.me/product/${product.handle}` : '#';
+          const rawPrice = Number(product.price);
+          const price = !isNaN(rawPrice)
+            ? `$${(rawPrice >= 100 ? rawPrice / 100 : rawPrice).toFixed(2)}`
+            : 'Price N/A';
+          const image = product.image || 'placeholder.jpg';
+          const link = product.link || '#';
 
           const div = document.createElement('div');
           div.className = 'product';
