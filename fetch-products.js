@@ -24,20 +24,34 @@ https
     res.on("end", () => {
       try {
         const raw = JSON.parse(data);
-        const products = raw.data.map((product) => {
+        const products = raw.map((product, index) => {
           const variant = product.variants?.[0];
           const image = variant?.images?.[0]?.src || product.images?.[0]?.src;
-          const price = (variant?.retail_price || 0) / 100;
+
+          // Log first product for debugging
+          if (index === 0) {
+            console.log("Sample Product:", JSON.stringify(product, null, 2));
+            console.log("Sample Variant:", JSON.stringify(variant, null, 2));
+          }
+
+          // Use retail_price if available, fallback to price
+          let priceCents = variant?.retail_price || variant?.price || 0;
+          let price = parseFloat(priceCents) / 100;
+
           const formattedPrice = new Intl.NumberFormat("en-US", {
             style: "currency",
             currency: "USD",
           }).format(price);
 
+          const handle = product.handle || product.id || "";
+
           return {
             title: product.title || "No title",
             image: image || "",
             price: formattedPrice,
-            link: `https://halal-hustler.printify.me/products/${product.id}`,
+            link: handle
+              ? `https://halal-hustler.printify.me/products/${handle}`
+              : "",
           };
         });
 
