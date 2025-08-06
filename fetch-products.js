@@ -24,7 +24,7 @@ https
     res.on("end", () => {
       try {
         const raw = JSON.parse(data);
-        const products = raw.map((product) => {
+        const products = raw.data.map((product) => {
           const variant = product.variants?.[0];
           const image = variant?.images?.[0]?.src || product.images?.[0]?.src;
           const price = (variant?.price || 0) / 100;
@@ -37,7 +37,7 @@ https
             title: product.title || "No title",
             image: image || "",
             price: formattedPrice,
-            link: `https://halal-hustler.printify.me/products/${product.id}`, // <-- FIXED
+            link: `https://halal-hustler.printify.me/products/${product.id}`,
           };
         });
 
