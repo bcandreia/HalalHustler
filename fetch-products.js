@@ -32,15 +32,12 @@ https
             style: "currency",
             currency: "USD",
           }).format(price);
-          const handle = product.handle || product.id || "";
 
           return {
             title: product.title || "No title",
             image: image || "",
             price: formattedPrice,
-            link: handle
-              ? `https://halal-hustler.printify.me/products/${handle}`
-              : "",
+            link: `https://halal-hustler.printify.me/products/${product.id}`,
           };
         });
 
